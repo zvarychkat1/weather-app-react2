@@ -8,7 +8,7 @@ const api = {
 
 function App() {
   const [query, setQuery] = useState('')
-  const [weather, setWeather] = useState('')
+  const [weather, setWeather] = useState({})
 
   const search = evt =>{
     if (evt.key === "Enter"){
@@ -17,7 +17,7 @@ function App() {
       .then(result =>{
         setWeather(result)
         setQuery('')
-        // console.log(result)
+        console.log(result)
     })
   }}
 
