@@ -12,7 +12,7 @@ function App() {
 
   const search = evt =>{
     if (evt.key === "Enter"){
-      fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
+      fetch(`${api.base}weather?q=${query}&appid=${api.key}`)
       .then(res =>res.json())
       .then(result =>{
         setWeather(result)
@@ -36,14 +36,14 @@ function App() {
 
 
   return (
-    <div className="app">
+    <div className={(typeof weather.main != "undefined") ? ((weather.main.temp > 16) ? 'app warm' : 'app') : 'app'}>
       <main>
         <div className="search-box">
-          <input
+          <input 
             type="text"
             className="search-bar"
             placeholder="Search..."
-            onChange={e =>setQuery(e.target.value)}
+            onChange={e => setQuery(e.target.value)}
             value={query}
             onKeyPress={search}
           />
@@ -56,9 +56,9 @@ function App() {
           </div>
           <div className="weather-box">
             <div className="temp">
-              15*C
+              {Math.round(weather.main.temp)}°c
             </div>
-            <div className="weather">Sunny</div>
+            <div className="weather">{weather.weather[0].main}</div>
           </div>
         </div>
         ) : ('')}
